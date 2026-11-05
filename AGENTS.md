@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+# Sehaty
+- App state (users, orders, commission rate) lives in src/lib/store.ts (localStorage) until Lovable Cloud is enabled; swap actions there for real backend calls.
+- Commission math lives only in src/lib/commission.ts so patient, provider and admin screens agree.
