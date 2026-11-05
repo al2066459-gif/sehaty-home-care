@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { actions } from "@/lib/store";
 
 export const Route = createFileRoute("/login")({
-  validateSearch: (s: Record<string, unknown>) => ({ mode: s.mode === "register" ? "register" : "login" }) as { mode?: "login" | "register" },
+  validateSearch: (s: Record<string, unknown>) => ({ mode: s["mode"] === "register" ? "register" : "login" }) as { mode?: "login" | "register" },
   head: () => ({
     meta: [
       { title: "تسجيل الدخول - صحتي" },
