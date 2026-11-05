@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapPin, LocateFixed, Banknote, CreditCard, Phone } from "lucide-react";
 import { Shell, TopBar, LYD } from "@/components/sehaty";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,9 @@ function RequestPage() {
   const [name, setName] = useState(user?.name ?? "");
   const [phone, setPhone] = useState(user?.phone ?? "");
   const [err, setErr] = useState("");
+  useEffect(() => {
+    if (user) { setName((n) => n || user.name); setPhone((p) => p || user.phone); }
+  }, [user]);
   const emergency = service === "ambulance";
 
   const locate = () => {
