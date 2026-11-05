@@ -78,7 +78,7 @@ function Admin() {
                 {byService.map((b) => (
                   <div key={b.k} className="flex flex-1 flex-col items-center gap-2">
                     <span className="text-xs font-bold">{b.n}</span>
-                    <div className="w-full rounded-t-lg bg-gradient-brand" style={{ height: `${(b.n / max) * 100}%`, minHeight: 4 }} />
+                    <div className="w-full rounded-t-lg bg-gradient-brand" style={{ height: `${(b.n / max) * 110 + 4}px` }} />
                     <span className="text-center text-xs text-muted-foreground">{SERVICES[b.k].title}</span>
                   </div>
                 ))}
