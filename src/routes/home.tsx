@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Stethoscope, Syringe, FlaskConical, Ambulance, Search, MapPin, Bell } from "lucide-react";
-import { Shell, Logo, StatusBadge } from "@/components/sehaty";
+import { Search, MapPin } from "lucide-react";
+import { Shell, Logo, StatusBadge, SERVICE_ICON } from "@/components/sehaty";
 import { SERVICES, useStore, type ServiceKey } from "@/lib/store";
 
 export const Route = createFileRoute("/home")({
@@ -15,9 +15,6 @@ export const Route = createFileRoute("/home")({
   component: Home,
 });
 
-export const SERVICE_ICON: Record<ServiceKey, typeof Stethoscope> = {
-  doctor: Stethoscope, nurse: Syringe, lab: FlaskConical, ambulance: Ambulance,
-};
 
 function Home() {
   const { user, orders } = useStore();

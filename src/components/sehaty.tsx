@@ -1,8 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronRight, Home, ClipboardList, User, Bell } from "lucide-react";
+import { ChevronRight, Home, ClipboardList, User, Bell, Stethoscope, Syringe, FlaskConical, Ambulance } from "lucide-react";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png";
-import { STATUS_LABEL, type OrderStatus } from "@/lib/store";
+import { STATUS_LABEL, type OrderStatus, type ServiceKey } from "@/lib/store";
 
 export function Logo({ size = "md", tagline }: { size?: "sm" | "md" | "lg"; tagline?: string }) {
   const s = { sm: "h-8 w-8", md: "h-12 w-12", lg: "h-20 w-20" }[size];
@@ -78,3 +78,7 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
 }
 
 export const LYD = (n: number) => `${n.toLocaleString("ar-LY")} د.ل`;
+
+export const SERVICE_ICON: Record<ServiceKey, typeof Stethoscope> = {
+  doctor: Stethoscope, nurse: Syringe, lab: FlaskConical, ambulance: Ambulance,
+};

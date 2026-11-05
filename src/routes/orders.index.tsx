@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Shell, TopBar, StatusBadge, LYD } from "@/components/sehaty";
+import { Shell, TopBar, StatusBadge, LYD, SERVICE_ICON } from "@/components/sehaty";
 import { SERVICES, useStore } from "@/lib/store";
-import { SERVICE_ICON } from "./home";
 
 export const Route = createFileRoute("/orders/")({
   head: () => ({
