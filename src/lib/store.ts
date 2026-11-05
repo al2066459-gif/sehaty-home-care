@@ -53,7 +53,7 @@ export type Order = {
   patient: string;
   phone: string;
   address: string;
-  coords?: { lat: number; lng: number };
+  coords?: { lat: number; lng: number } | undefined;
   date: string;
   time: string;
   notes: string;
@@ -63,7 +63,7 @@ export type Order = {
   createdAt: number;
 };
 
-export type User = { name: string; phone: string; role: "patient" | "provider"; specialty?: string };
+export type User = { name: string; phone: string; role: "patient" | "provider"; specialty?: string | undefined };
 
 type State = { user: User | null; orders: Order[]; commissionRate: number };
 
