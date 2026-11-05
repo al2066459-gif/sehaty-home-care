@@ -35,7 +35,7 @@ function RequestPage() {
   const s = SERVICES[service];
   const { user } = useStore();
   const nav = useNavigate();
-  const [option, setOption] = useState(s.options[0]);
+  const [option, setOption] = useState<string>(s.options[0] ?? "");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [time, setTime] = useState("10:00");
   const [address, setAddress] = useState("");
