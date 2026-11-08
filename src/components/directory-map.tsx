@@ -49,7 +49,7 @@ export function DirectoryMap({ clinics, selected, position, onSelect }: { clinic
       if (c.latitude === null || c.longitude === null) return;
       const p = { lat: c.latitude, lng: c.longitude };
       bounds.extend(p);
-      const marker = new google.maps.Marker({ position: p, map: currentMap, title: c.name, animation: c.id === selected ? google.maps.Animation.BOUNCE : undefined });
+      const marker = new google.maps.Marker({ position: p, map: currentMap, title: c.name, animation: c.id === selected ? google.maps.Animation.BOUNCE : null });
       marker.addListener("click", () => {
         onSelect(c.id);
         const label = document.createElement("div"); label.textContent = c.name; label.dir = "rtl";
