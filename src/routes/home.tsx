@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Search, MapPin } from "lucide-react";
+import { Search, MapPin, Building2, ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Shell, Logo, StatusBadge, SERVICE_ICON } from "@/components/sehaty";
 import { SERVICES, useStore, type ServiceKey } from "@/lib/store";
 
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/home")({
       { name: "description", content: "اختر الخدمة الطبية المنزلية التي تحتاجها." },
       { property: "og:title", content: "الرئيسية - صحتي" },
       { property: "og:description", content: "طبيب، تمريض، تحاليل، إسعاف." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
@@ -39,6 +42,18 @@ function Home() {
         <p className="text-sm opacity-90">رعاية صحية أسهل .. لحياة أفضل</p>
         <h2 className="mt-1 text-xl font-extrabold">طبيبك يصل إلى منزلك</h2>
         <Link to="/request/$service" params={{ service: "doctor" }} className="mt-3 inline-block rounded-xl bg-card px-4 py-2 text-sm font-bold text-primary">احجز الآن</Link>
+      </section>
+
+      <section className="mx-5 mt-5 border-y py-4">
+        <Button asChild variant="ghost" className="h-auto w-full justify-between whitespace-normal px-0 py-2 text-right hover:bg-transparent">
+          <Link to="/directory">
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-soft text-primary"><Building2 className="h-6 w-6" /></span>
+              <span className="min-w-0"><span className="block text-base font-bold text-brand-blue">دليل المصحات الطبية</span><span className="mt-1 block text-xs font-normal text-muted-foreground">مصحات وعيادات ومراكز طرابلس</span></span>
+            </span>
+            <ChevronLeft className="h-5 w-5 shrink-0 text-primary" />
+          </Link>
+        </Button>
       </section>
 
       <h2 className="mx-5 mt-6 text-lg font-bold">خدماتنا</h2>
