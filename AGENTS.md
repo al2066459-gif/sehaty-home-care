@@ -31,3 +31,4 @@ use the editor.
 # Sehaty
 - App state (users, orders, commission rate) lives in src/lib/store.ts (localStorage) until Lovable Cloud is enabled; swap actions there for real backend calls.
 - Commission math lives only in src/lib/commission.ts so patient, provider and admin screens agree.
+- Include `google.maps` ambient types in the TypeScript configuration for the browser map; keep Maps API calls inside effects and event handlers to preserve SSR safety.
