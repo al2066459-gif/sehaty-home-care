@@ -1,6 +1,8 @@
 # Medical directory
-- [ ] Enable database and Google Maps connection.
-- [ ] Add cities/regions, sourced clinics and secure administrator permissions.
-- [ ] Add Arabic directory, search, proximity, map and directions.
+- [x] Enable database and Google Maps connection.
+- [x] Add cities/regions, sourced clinics and secure administrator permissions.
+- [x] Add Arabic directory, search, proximity, map and directions.
 - [ ] Add clinic management to existing admin dashboard.
-- [ ] Verify directory flows and existing regression tests; report coverage and setup limitations.
+- [x] Fix Google Maps TypeScript compilation errors; confirm build OK.
+- [x] Verify public directory loading, search, empty results, reset, return to Home and existing regression tests.
+- [ ] Validate Google Maps on an authorized deployed origin (not supported in agent sandbox).
