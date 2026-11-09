@@ -17,6 +17,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProviderRouteImport } from './routes/provider'
+import { Route as AdminClinicsRouteImport } from './routes/admin_.clinics'
 import { Route as OrdersIndexRouteImport } from './routes/orders.index'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as RequestServiceRouteImport } from './routes/request.$service'
@@ -61,6 +62,11 @@ const ProviderRoute = ProviderRouteImport.update({
   path: '/provider',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminClinicsRoute = AdminClinicsRouteImport.update({
+  id: '/admin_/clinics',
+  path: '/admin/clinics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrdersIndexRoute = OrdersIndexRouteImport.update({
   id: '/orders/',
   path: '/orders/',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/provider': typeof ProviderRoute
+  '/admin/clinics': typeof AdminClinicsRoute
   '/orders/$id': typeof OrdersIdRoute
   '/request/$service': typeof RequestServiceRoute
   '/orders/': typeof OrdersIndexRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/provider': typeof ProviderRoute
+  '/admin/clinics': typeof AdminClinicsRoute
   '/orders/$id': typeof OrdersIdRoute
   '/request/$service': typeof RequestServiceRoute
   '/orders': typeof OrdersIndexRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/provider': typeof ProviderRoute
+  '/admin_/clinics': typeof AdminClinicsRoute
   '/orders/$id': typeof OrdersIdRoute
   '/request/$service': typeof RequestServiceRoute
   '/orders/': typeof OrdersIndexRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/provider'
+    | '/admin/clinics'
     | '/orders/$id'
     | '/request/$service'
     | '/orders/'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/provider'
+    | '/admin/clinics'
     | '/orders/$id'
     | '/request/$service'
     | '/orders'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/provider'
+    | '/admin_/clinics'
     | '/orders/$id'
     | '/request/$service'
     | '/orders/'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   ProviderRoute: typeof ProviderRoute
+  AdminClinicsRoute: typeof AdminClinicsRoute
   OrdersIdRoute: typeof OrdersIdRoute
   RequestServiceRoute: typeof RequestServiceRoute
   OrdersIndexRoute: typeof OrdersIndexRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin_/clinics': {
+      id: '/admin_/clinics'
+      path: '/admin/clinics'
+      fullPath: '/admin/clinics'
+      preLoaderRoute: typeof AdminClinicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/orders/': {
       id: '/orders/'
       path: '/orders'
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   ProviderRoute: ProviderRoute,
+  AdminClinicsRoute: AdminClinicsRoute,
   OrdersIdRoute: OrdersIdRoute,
   RequestServiceRoute: RequestServiceRoute,
   OrdersIndexRoute: OrdersIndexRoute,
