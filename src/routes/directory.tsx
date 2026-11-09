@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DirectoryMap } from "@/components/directory-map";
 import { directoryQuery } from "@/lib/directory.query";
-import { directionsUrl, distanceKm, filterClinics, hasCoordinates, type Position } from "@/lib/directory";
+import { directionsUrl, mapsSearchUrl, distanceKm, filterClinics, hasCoordinates, type Position } from "@/lib/directory";
 
 export const Route = createFileRoute("/directory")({
   head: () => ({ meta: [
@@ -66,9 +66,9 @@ function Directory() {
         <section className={`${view === "list" ? "block" : "hidden"} space-y-4 lg:block`} aria-label="قائمة المصحات">
           {!filtered.length && <div className="py-14 text-center"><Building2 className="mx-auto mb-3 h-10 w-10 text-muted-foreground" /><h2 className="font-bold">لا توجد نتائج مطابقة</h2><Button variant="ghost" onClick={() => { setQuery(""); setRegion(""); setSpecialty(""); }}>مسح البحث والتصفية</Button></div>}
           {filtered.map((c) => {
-            const url = directionsUrl(c);
             const area = data.regions.find((r) => r.id === c.region_id)?.name;
             const cityName = data.cities.find((x) => x.id === c.city_id)?.name;
+            const url = directionsUrl(c, cityName);
             return <article key={c.id} className={`overflow-hidden rounded-lg border bg-card shadow-card ${selected === c.id ? "ring-2 ring-primary" : ""}`}>
               {c.photo_url && <div><img src={c.photo_url} alt={c.name} className="h-44 w-full object-cover" onError={(e) => { e.currentTarget.hidden = true; }} /><p className="px-4 pt-1 text-xs text-muted-foreground">{c.photo_attribution}</p></div>}
               <div className="p-5"><div className="flex items-start gap-3"><div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-soft text-primary"><Building2 className="h-6 w-6" /></div><div className="min-w-0 flex-1"><p className="mb-1 text-xs text-primary">{c.kind}</p><h2 className="text-lg font-bold leading-7">{c.name}</h2><p className="mt-1 text-sm text-muted-foreground">{cityName}{area ? ` · ${area}` : " · المنطقة غير متوفرة"}</p></div></div>
@@ -76,7 +76,9 @@ function Directory() {
               <div className="mt-3 flex flex-wrap gap-2">{c.specialties.length ? c.specialties.map((s) => <span key={s} className="rounded-md bg-brand-soft px-2 py-1 text-xs text-primary">{s}</span>) : <p className="text-xs text-muted-foreground">التخصصات غير متوفرة في المصدر</p>}</div>
               <p className="mt-3 text-xs text-muted-foreground">الخدمات: {c.services.length ? c.services.join("، ") : "غير متوفرة في المصدر"}</p>
               <div className="mt-4 flex flex-wrap gap-2">{c.phones.length ? c.phones.map((p) => <Button key={p} asChild variant="outline" size="sm"><a href={`tel:${p.replace(/[^+\d]/g, "")}`}><Phone className="h-3.5 w-3.5" /><span dir="ltr">{p}</span></a></Button>) : <span className="text-xs text-muted-foreground">الهاتف غير متوفر</span>}</div>
-              <div className="mt-4 flex flex-wrap items-center gap-2">{url ? <><Button asChild size="sm"><a href={url} target="_blank" rel="noopener noreferrer"><Navigation className="h-4 w-4" />الاتجاهات</a></Button><Button size="sm" variant="ghost" onClick={() => { select(c.id); setView("map"); }}><MapPin className="h-4 w-4" />على الخريطة</Button></> : <span className="text-xs text-warning">الموقع الجغرافي غير موثق — الاتجاهات غير متاحة</span>}{position && c.latitude !== null && c.longitude !== null && <span className="mr-auto text-sm font-bold text-primary">{distanceKm(position, { lat: c.latitude, lng: c.longitude }).toFixed(1)} كم</span>}</div>
+              <div className="mt-4 flex flex-wrap items-center gap-2"><Button asChild size="sm" variant="outline"><a href={mapsSearchUrl(c, cityName)} target="_blank" rel="noopener noreferrer"><Map className="h-4 w-4" />فتح في خرائط Google</a></Button><Button asChild size="sm"><a href={url} target="_blank" rel="noopener noreferrer"><Navigation className="h-4 w-4" />الاتجاهات</a></Button>{hasCoordinates(c) && <Button size="sm" variant="ghost" onClick={() => { select(c.id); setView("map"); }}><MapPin className="h-4 w-4" />على الخريطة</Button>}</div>
+              {!hasCoordinates(c) && <p className="mt-2 text-xs text-warning">الموقع غير مؤكد — سيبحث Google بالاسم والعنوان وقد تظهر عدة نتائج.</p>}
+              <div className="mt-2 flex flex-wrap items-center gap-2">{position && c.latitude !== null && c.longitude !== null && <span className="mr-auto text-sm font-bold text-primary">{distanceKm(position, { lat: c.latitude, lng: c.longitude }).toFixed(1)} كم</span>}</div>
               <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t pt-3 text-xs text-muted-foreground"><div className="flex flex-wrap gap-3">{c.source_urls.map((u, i) => <a key={u} href={u} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary"><ExternalLink className="h-3 w-3" />{i === 0 ? "المصدر الرسمي" : "مصدر إضافي"}</a>)}</div><span>{c.verified_at ? `مراجعة المصدر: ${c.verified_at.slice(0, 10)}` : "تاريخ المراجعة غير متوفر"}</span></div>
               </div>
             </article>;

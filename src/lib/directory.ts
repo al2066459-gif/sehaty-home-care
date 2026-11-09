@@ -54,7 +54,17 @@ export function filterClinics(data: DirectoryData, query: string, city: string, 
   });
   return result;
 }
-export function directionsUrl(c: Clinic) {
-  if (c.latitude === null || c.longitude === null) return null;
-  return `https://www.google.com/maps/dir/?api=1&destination=${c.latitude},${c.longitude}`;
+type MapsClinic = Pick<Clinic, "name" | "address" | "latitude" | "longitude">;
+/** Text query: name + address + city + Libya, so it works for any Libyan city. */
+export function mapsQuery(c: MapsClinic, cityName?: string | null) {
+  return [c.name, c.address, cityName, "ليبيا"].filter((p) => p && p.trim()).join("، ");
+}
+/** Opens Google Maps search by name/address (shows results list if not matched exactly). */
+export function mapsSearchUrl(c: MapsClinic, cityName?: string | null) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery(c, cityName))}`;
+}
+/** Directions from the user's current location; verified coordinates first, otherwise text search. */
+export function directionsUrl(c: MapsClinic, cityName?: string | null) {
+  const dest = hasCoordinates(c) ? `${c.latitude},${c.longitude}` : mapsQuery(c, cityName);
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=driving`;
 }
