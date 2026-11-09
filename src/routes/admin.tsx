@@ -57,6 +57,7 @@ function Admin() {
               <x.icon className="h-4 w-4" />{x.label}
             </button>
           ))}
+          <Link to="/admin/clinics" className="flex shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm hover:bg-sidebar-accent"><ClipboardList className="h-4 w-4" />دليل المصحات</Link>
           <Link to="/" className="flex shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm hover:bg-sidebar-accent"><Home className="h-4 w-4" />التطبيق</Link>
         </nav>
       </aside>

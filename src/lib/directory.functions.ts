@@ -44,6 +44,16 @@ export const getManagedDirectory = createServerFn({ method: "POST" }).middleware
   return { clinics, cities: cities.data ?? [], regions: regions.data ?? [] };
 });
 
+export const deleteClinic = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string }) => ({ id: String(input.id) }))
+  .handler(async ({ data, context }) => {
+    const { data: admin, error: roleError } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (roleError || !admin) throw new Error("لا تملك صلاحية حذف المصحات");
+    const { error } = await context.supabase.from("directory_clinics").delete().eq("id", data.id);
+    if (error) throw new Error("تعذر حذف المصحة");
+    return { ok: true };
+  });
+
 export const saveClinic = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => clinicSchema.parse(input))
   .handler(async ({ data, context }) => {
