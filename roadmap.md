@@ -6,4 +6,8 @@
 - [x] Add clinic management to existing admin dashboard.
 - [x] Fix Google Maps TypeScript compilation errors; confirm build OK.
 - [x] Verify public directory loading, search, empty results, reset, return to Home and existing regression tests.
-- [ ] Validate Google Maps on an authorized deployed origin (not supported in agent sandbox).
+- [ ] Validate Google Maps on an authorized deployed origin (not supported in agent sandbox).# Ambulance & transport
+- [ ] Ambulance companies directory inside existing ambulance request (call, WhatsApp, directions, coverage, service filter).
+- [ ] Real ambulance request form saved to database; confirmation only after success.
+- [ ] Admin: manage companies, cities/regions, review ambulance requests, publish/hide.
+- [ ] Clinic hours + WhatsApp/contact fields.

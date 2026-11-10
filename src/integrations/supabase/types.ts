@@ -14,6 +14,146 @@ export type Database = {
   }
   public: {
     Tables: {
+      ambulance_companies: {
+        Row: {
+          address: string | null
+          availability_confirmed: boolean
+          city_id: string
+          coordinate_source_url: string | null
+          coverage: string[]
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          phones: string[]
+          published: boolean
+          region_id: string | null
+          services: string[]
+          source_urls: string[]
+          updated_at: string
+          vehicle_types: string[]
+          verification: string
+          website: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          address?: string | null
+          availability_confirmed?: boolean
+          city_id: string
+          coordinate_source_url?: string | null
+          coverage?: string[]
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          phones?: string[]
+          published?: boolean
+          region_id?: string | null
+          services?: string[]
+          source_urls?: string[]
+          updated_at?: string
+          vehicle_types?: string[]
+          verification?: string
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          address?: string | null
+          availability_confirmed?: boolean
+          city_id?: string
+          coordinate_source_url?: string | null
+          coverage?: string[]
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          phones?: string[]
+          published?: boolean
+          region_id?: string | null
+          services?: string[]
+          source_urls?: string[]
+          updated_at?: string
+          vehicle_types?: string[]
+          verification?: string
+          website?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ambulance_companies_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "directory_cities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ambulance_companies_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "directory_regions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ambulance_requests: {
+        Row: {
+          city: string
+          company_id: string | null
+          created_at: string
+          destination: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          notes: string | null
+          phone: string
+          pickup: string
+          region: string | null
+          requester_name: string
+          status: string
+          transport_type: string
+        }
+        Insert: {
+          city: string
+          company_id?: string | null
+          created_at?: string
+          destination: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          notes?: string | null
+          phone: string
+          pickup: string
+          region?: string | null
+          requester_name: string
+          status?: string
+          transport_type: string
+        }
+        Update: {
+          city?: string
+          company_id?: string | null
+          created_at?: string
+          destination?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          notes?: string | null
+          phone?: string
+          pickup?: string
+          region?: string | null
+          requester_name?: string
+          status?: string
+          transport_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ambulance_requests_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "ambulance_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       directory_cities: {
         Row: {
           country: string
@@ -52,6 +192,8 @@ export type Database = {
           specialties: string[]
           updated_at: string
           verified_at: string | null
+          whatsapp: string | null
+          working_hours: string | null
         }
         Insert: {
           address?: string | null
@@ -72,6 +214,8 @@ export type Database = {
           specialties?: string[]
           updated_at?: string
           verified_at?: string | null
+          whatsapp?: string | null
+          working_hours?: string | null
         }
         Update: {
           address?: string | null
@@ -92,6 +236,8 @@ export type Database = {
           specialties?: string[]
           updated_at?: string
           verified_at?: string | null
+          whatsapp?: string | null
+          working_hours?: string | null
         }
         Relationships: [
           {
